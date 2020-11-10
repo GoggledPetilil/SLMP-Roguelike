@@ -10,9 +10,12 @@ public class RoomSpawner : MonoBehaviour
     private RoomTemplates m_RT;
     private bool spawned;
 
+    private float m_DestroyTime = 3f;
+
     // Start is called before the first frame update
     void Start()
     {
+        Destroy(gameObject, m_DestroyTime);
         m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         Invoke("RoomSpawn", 0.1f);
     }
@@ -51,21 +54,22 @@ public class RoomSpawner : MonoBehaviour
                 int r = Random.Range(0, m_RT.m_LeftRooms.Length);
                 Instantiate(m_RT.m_LeftRooms[r], transform.position, Quaternion.identity);
             }
+            spawned = true;
         }
-
-        spawned = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("SpawnPoint"))
         {
-            if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            /*if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
                 Instantiate(m_RT.m_Closed, transform.position, Quaternion.identity);
                 spawned = true;
-            }
-            Destroy(this.gameObject);
+                Destroy(this.transform.parent.gameObject);
+            }*/
+
+            Destroy(this);
         }
     }
 }
