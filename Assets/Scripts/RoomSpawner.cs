@@ -8,7 +8,7 @@ public class RoomSpawner : MonoBehaviour
 {
     public int m_OpenDir; // 1 = NEEDS Top, 2 = NEEDS Right, 3 = NEEDS Bottom, 4 = NEEDS Left
     private RoomTemplates m_RT;
-    private bool spawned;
+    public bool spawned = false;
 
     private float m_DestroyTime = 3f;
 
@@ -60,14 +60,15 @@ public class RoomSpawner : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("SpawnPoint"))
+        if (other.gameObject.tag == "SpawnPoint")
         {
-            /*if (other.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            if (other.gameObject.GetComponent<RoomSpawner>().spawned == false && spawned == false)
             {
-                Instantiate(m_RT.m_Closed, transform.position, Quaternion.identity);
+                Instantiate(m_RT.m_Closed, this.gameObject.transform.position, Quaternion.identity);
                 spawned = true;
+                other.GetComponent<RoomSpawner>().spawned = true;
                 Destroy(this.transform.parent.gameObject);
-            }*/
+            }
 
             Destroy(this);
         }
