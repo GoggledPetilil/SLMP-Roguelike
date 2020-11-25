@@ -10,8 +10,10 @@
           <e p="AddRoom.cs" t="Include" />
           <e p="CameraFollow.cs" t="Include" />
           <e p="DestroyWalls.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="QuitGame.cs" t="Include" />
+          <e p="RoomCam.cs" t="Include" />
           <e p="RoomSpawner.cs" t="Include" />
           <e p="RoomTemplates.cs" t="Include" />
           <e p="Stairs.cs" t="Include" />
