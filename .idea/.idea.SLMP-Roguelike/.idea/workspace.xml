@@ -2,23 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d713dd1-8c64-4bca-842d-8378a10f08c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/B.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/B.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkDown.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkLeft.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkRight.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkUp.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,6 +103,9 @@
       <workItem from="1606076000507" duration="1812000" />
       <workItem from="1606254706571" duration="3674000" />
       <workItem from="1606313491729" duration="7584000" />
+      <workItem from="1606685634851" duration="742000" />
+      <workItem from="1606748814649" duration="4233000" />
+      <workItem from="1606842694322" duration="9960000" />
     </task>
     <servers />
   </component>
