@@ -10,6 +10,8 @@
           <e p="AddRoom.cs" t="Include" />
           <e p="CameraFollow.cs" t="Include" />
           <e p="DestroyWalls.cs" t="Include" />
+          <e p="EnemyBehaviour.cs" t="Include" />
+          <e p="Entity.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="QuitGame.cs" t="Include" />

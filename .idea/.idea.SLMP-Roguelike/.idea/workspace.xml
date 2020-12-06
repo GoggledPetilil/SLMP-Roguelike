@@ -2,20 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d713dd1-8c64-4bca-842d-8378a10f08c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player.controller" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkDown.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkLeft.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkRight.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_WalkUp.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Player.png.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +38,9 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/RoomCam.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/RoomSpawner.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Entity.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" />
       </list>
     </option>
   </component>
@@ -106,6 +103,11 @@
       <workItem from="1606685634851" duration="742000" />
       <workItem from="1606748814649" duration="4233000" />
       <workItem from="1606842694322" duration="9960000" />
+      <workItem from="1606908846593" duration="4601000" />
+      <workItem from="1606916381685" duration="1000" />
+      <workItem from="1606916667168" duration="6360000" />
+      <workItem from="1607012922065" duration="6103000" />
+      <workItem from="1607256695764" duration="10216000" />
     </task>
     <servers />
   </component>
@@ -116,5 +118,11 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="242" width="672" height="678" key="search.everywhere.popup" timestamp="1607019292134">
+      <screen x="0" y="27" width="1920" height="985" />
+    </state>
+    <state x="623" y="242" width="672" height="678" key="search.everywhere.popup/0.27.1920.985@0.27.1920.985" timestamp="1607019292134" />
   </component>
 </project>

@@ -3,36 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : Entity
 {
-    private enum State
+    public enum State
     {
         Normal,
         Attacking,
-        Rolling
+        Rolling,
+        Damaged
     }
     
-    [Header("Physics")]
-    public float m_MoveSpeed;
+    [Header("Player Physics")]
     public float m_RollSpeed;
     private float m_RollSpeedOrigin;
-    public Vector2 m_Mov;
-    public Vector2 m_ActionDir;
     public float m_ActionCooldown;
     private float m_ActionTimer;
     
-    [Header("Components")]
-    public Animator m_ani;
-    public Rigidbody2D m_rb;
+    [Header("Player Components")]
     private State m_state;
     
     // Start is called before the first frame update
     void Start()
     {
-        m_rb = GetComponent<Rigidbody2D>();
+        InitializeCharacter();
+        
         m_state = State.Normal;
+
         m_RollSpeedOrigin = m_RollSpeed;
-        m_ActionDir.y = -1f;
     }
 
     // Update is called once per frame
@@ -47,16 +44,18 @@ public class PlayerMove : MonoBehaviour
                 m_MovX = Input.GetAxisRaw("Horizontal");
                 m_MovY = Input.GetAxisRaw("Vertical");
         
-                m_Mov = new Vector2(m_MovX, m_MovY).normalized;
+                m_MovDir = new Vector2(m_MovX, m_MovY).normalized;
                 if (m_MovX != 0 || m_MovY != 0)
                 {
-                    m_ActionDir = m_Mov;
+                    m_ActionDir = m_MovDir;
                 }
         
-                MoveAndAni();
+                MoveAni();
 
                 if (Input.GetButtonDown("Roll") && m_ActionTimer <= 0)
                 {
+                    CreateDust();
+                    m_IsInvincible = true;
                     ActionDirToDirection();
                     m_state = State.Rolling;
                     m_ani.SetBool("isRolling", true);
@@ -65,14 +64,19 @@ public class PlayerMove : MonoBehaviour
                 if (Input.GetButtonDown("Attack") && m_ActionTimer <= 0)
                 {
                     m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
-                    m_Mov = new Vector2(0f, 0f);
+                    m_MovDir = new Vector2(0f, 0f);
                     ActionDirToDirection();
                     m_state = State.Attacking;
                     StartCoroutine("Attack");
                 }
 
                 m_ActionTimer -= 1 * Time.deltaTime;
-                
+                ReduceInvincibility();
+
+                if (m_Damaged == true)
+                {
+                    m_state = State.Damaged;
+                }
                 break;
             case State.Rolling:
                 float m_RollMultiplier = 10f; // How fast the rolling speed decreases.
@@ -84,11 +88,24 @@ public class PlayerMove : MonoBehaviour
                 {
                     m_RollSpeed = m_RollSpeedOrigin;
 
-                    m_state = State.Normal;
+                    StopDust();
                     m_ani.SetBool("isRolling", false);
                     ReturnCooldown();
+                    m_IsInvincible = false;
+                    m_state = State.Normal;
                 }
+                break;
+            case State.Damaged:
+                m_KnockbackSpeed -= m_KnockbackSpeed * (m_Defence + m_DefBonus) * Time.deltaTime;
 
+                float m_KnockSpeedMinimum = 1;
+                if (m_KnockbackSpeed < m_KnockSpeedMinimum)
+                {
+                    StopDust();
+                    m_rb.velocity = Vector2.zero;
+                    m_KnockbackDir = Vector2.zero;
+                    m_state = State.Normal;
+                }
                 break;
         }
     }
@@ -98,22 +115,15 @@ public class PlayerMove : MonoBehaviour
         switch (m_state)
         {
             case State.Normal:
-                m_rb.velocity = m_Mov * m_MoveSpeed;
+                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
                 break;
             case State.Rolling:
-                m_rb.velocity = m_ActionDir * m_MoveSpeed * m_RollSpeed;
+                m_rb.velocity = m_ActionDir * ((m_Speed + m_SpdBonus) * m_RollSpeed);
+                break;
+            case State.Damaged:
+                m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
                 break;
         }
-    }
-
-    private void MoveAndAni()
-    {
-        if (m_Mov != Vector2.zero)
-        {
-            m_ani.SetFloat("Horizontal", m_Mov.x);
-            m_ani.SetFloat("Vertical", m_Mov.y);
-        }
-        m_ani.SetFloat("Speed", m_Mov.sqrMagnitude);
     }
     
     private IEnumerator Attack()
@@ -130,30 +140,5 @@ public class PlayerMove : MonoBehaviour
     private void ReturnCooldown()
     {
         m_ActionTimer = m_ActionCooldown;
-    }
-
-    private void ActionDirToDirection()
-    {
-        if (m_ActionDir.y > 0f && m_ActionDir.y < 1f)
-        {
-            if (m_rb.velocity.magnitude > 0)
-            {
-                m_ActionDir.x = 0f;
-                m_ActionDir.y = Mathf.RoundToInt(m_ActionDir.y);
-            }
-            else
-            {
-                m_ActionDir.x = Mathf.RoundToInt(m_ActionDir.x);
-                m_ActionDir.y = 0f;
-            }
-        }
-        else if (m_ActionDir.y < 0f && m_ActionDir.y > -1f)
-        {
-            m_ActionDir.x = 0f;
-            m_ActionDir.y = Mathf.RoundToInt(m_ActionDir.y);
-        }
-        
-        m_ani.SetFloat("Horizontal", m_ActionDir.x);
-        m_ani.SetFloat("Vertical", m_ActionDir.y);
     }
 }
