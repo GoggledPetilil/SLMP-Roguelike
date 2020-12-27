@@ -17,7 +17,8 @@ public class EnemyBehaviour : Entity
     
     [Header("Enemy Physics")]
     public GameObject m_TargetObject;
-    public Vector2 m_TargetPos;
+    public Vector3 m_TargetPos;
+    private float m_Interest; // How long the enemy is interested in a location.
     
     [Header("Enemy Components")]
     private State m_state;
@@ -26,6 +27,7 @@ public class EnemyBehaviour : Entity
     void Start()
     {
         InitializeCharacter();
+        Changeinterest();
         
         m_state = State.Normal;
         
@@ -40,10 +42,23 @@ public class EnemyBehaviour : Entity
         switch (m_state)
         {
             case State.Normal:
-                // Move to a random room. Preferably with pathfinding.
+                m_MovDir = ((m_TargetPos) - transform.position).normalized;
+                if (m_MovDir.x != 0 || m_MovDir.y != 0)
+                {
+                    m_ActionDir = m_MovDir;
+                }
                 
                 CheckSight();
                 ReduceInvincibility();
+                if (Vector2.Distance(transform.position, m_TargetPos) <= m_Sight || m_Interest < 0)
+                {
+                    // In Sight or bored, change interest.
+                    Changeinterest();
+                }
+                else
+                {
+                    m_Interest -= Time.deltaTime;
+                }
                 
                 if (m_Damaged == true)
                 {
@@ -85,7 +100,7 @@ public class EnemyBehaviour : Entity
         switch (m_state)
         {
             case State.Normal:
-                m_rb.velocity = m_MovDir * 0f;
+                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
                 break;
             case State.Chasing:
                 m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
@@ -109,5 +124,14 @@ public class EnemyBehaviour : Entity
             // No player in sight. Roam about.
             m_state = State.Normal;
         }
+    }
+
+    private void Changeinterest()
+    {
+        RoomTemplates m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+        int r = Random.Range(0, m_RT.m_RoomsList.Count - 1);
+
+        m_TargetPos = m_RT.m_RoomsList[r].transform.position;
+        m_Interest = 10f;
     }
 }

@@ -3,13 +3,32 @@
   <component name="ChangeListManager">
     <list default="true" id="9d713dd1-8c64-4bca-842d-8378a10f08c3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Entity/Player/Sword.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/World/Stairs.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Enemies/Slime.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Enemies/Slime.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoomCam.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoomCam.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoomSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoomSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,28 +40,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/AddRoom.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Item.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MoneyText.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EnemySpawner.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/HealthBar.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/Assets/Scripts/AddRoom.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/QuitGame.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RoomCam.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/RoomSpawner.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/Entity.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" />
-        <option value="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" />
-      </list>
-    </option>
+    <changedPaths>
+      <option value="$PROJECT_DIR$/Assets/Scripts/Item.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/MoneyText.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EnemySpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Entity.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EntityOverlap.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RoomSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/DestroyWalls.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" />
+    </changedPaths>
   </component>
   <component name="ProjectId" id="1k0n1nX6wtDBYlKI1QW1hnDm03n" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -70,7 +91,7 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="selectedOptions">
-        <set />
+        <list />
       </option>
       <method v="2" />
     </configuration>
@@ -79,7 +100,7 @@
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
       <option name="selectedOptions">
-        <set />
+        <list />
       </option>
       <method v="2" />
     </configuration>
@@ -108,6 +129,25 @@
       <workItem from="1606916667168" duration="6360000" />
       <workItem from="1607012922065" duration="6103000" />
       <workItem from="1607256695764" duration="10216000" />
+      <workItem from="1607453060616" duration="1097000" />
+      <workItem from="1607456026008" duration="1266000" />
+      <workItem from="1607520309084" duration="976000" />
+      <workItem from="1607522966886" duration="1165000" />
+      <workItem from="1607525350089" duration="601000" />
+      <workItem from="1607613571474" duration="6617000" />
+      <workItem from="1607789274884" duration="5276000" />
+      <workItem from="1607978961754" duration="4537000" />
+      <workItem from="1608135400566" duration="1380000" />
+      <workItem from="1608137222005" duration="4469000" />
+      <workItem from="1608386691042" duration="1174000" />
+      <workItem from="1608476197538" duration="3138000" />
+      <workItem from="1608568397859" duration="2668000" />
+      <workItem from="1608573221729" duration="730000" />
+      <workItem from="1608655826353" duration="595000" />
+      <workItem from="1608657046060" duration="1491000" />
+      <workItem from="1608740566593" duration="3457000" />
+      <workItem from="1608745448214" duration="401000" />
+      <workItem from="1609086120271" duration="350000" />
     </task>
     <servers />
   </component>
@@ -118,11 +158,5 @@
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="623" y="242" width="672" height="678" key="search.everywhere.popup" timestamp="1607019292134">
-      <screen x="0" y="27" width="1920" height="985" />
-    </state>
-    <state x="623" y="242" width="672" height="678" key="search.everywhere.popup/0.27.1920.985@0.27.1920.985" timestamp="1607019292134" />
   </component>
 </project>

@@ -16,7 +16,7 @@ public class DestroyWalls : MonoBehaviour
     // To Prevent the Start Room from being clogged
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "SpawnPoint" || other.gameObject.tag == "Wall")
+        if (other.tag == "SpawnPoint" || other.tag == "Wall")
         {
             Destroy(other.gameObject);
         }

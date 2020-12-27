@@ -127,6 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb141543a55e84bf8a40763151736ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Focused: 0
 --- !u!1 &2768465981802886324
 GameObject:
   m_ObjectHideFlags: 0
@@ -3748,8 +3749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca2dcd35341c101ba34344f32589a2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_OpenDir: 4
-  spawned: 0
+  m_Opening: 3
+  m_Spawned: 0
 --- !u!1 &6645210769228309202
 GameObject:
   m_ObjectHideFlags: 0

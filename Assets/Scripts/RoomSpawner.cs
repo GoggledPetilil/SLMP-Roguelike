@@ -2,75 +2,113 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class RoomSpawner : MonoBehaviour
 {
-    public int m_OpenDir; // 1 = NEEDS Top, 2 = NEEDS Right, 3 = NEEDS Bottom, 4 = NEEDS Left
+    public enum Opening
+    {
+        Top,
+        Right,
+        Bottom,
+        Left
+    }
+    
+    public Opening m_Opening;
+    private int m_DecorAmount;
+    private int m_MaxDecorAllowed = 8;
     private RoomTemplates m_RT;
-    public bool spawned = false;
+    public bool m_Spawned;
 
     private float m_DestroyTime = 3f;
 
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, m_DestroyTime);
+        //Destroy(gameObject, m_DestroyTime);
         m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
         Invoke("RoomSpawn", 0.1f);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void RoomSpawn()
     {
-        if (spawned == false)
+        if (m_Spawned == false)
         {
-            if(m_OpenDir == 1)
+            switch (m_Opening)
             {
-                // NEEDS Top opening
-                int r = Random.Range(0, m_RT.m_TopRooms.Length);
-                Instantiate(m_RT.m_TopRooms[r], transform.position, Quaternion.identity);
+                case Opening.Top:
+                    int tr = Mathf.FloorToInt(GameManager.instance.GetRandomRange(0, m_RT.m_TopRooms.Length));
+                    Instantiate(m_RT.m_TopRooms[tr], transform.position, Quaternion.identity);
+                    break;
+                case Opening.Right:
+                    int rr = Mathf.FloorToInt(GameManager.instance.GetRandomRange(0, m_RT.m_RightRooms.Length));
+                    Instantiate(m_RT.m_RightRooms[rr], transform.position, Quaternion.identity);
+                    break;
+                case Opening.Bottom:
+                    int br = Mathf.FloorToInt(GameManager.instance.GetRandomRange(0, m_RT.m_BottomRooms.Length));
+                    Instantiate(m_RT.m_BottomRooms[br], transform.position, Quaternion.identity);
+                    break;
+                case Opening.Left:
+                    int lr = Mathf.FloorToInt(GameManager.instance.GetRandomRange(0, m_RT.m_LeftRooms.Length));
+                    Instantiate(m_RT.m_LeftRooms[lr], transform.position, Quaternion.identity);
+                    break;
             }
-            else if(m_OpenDir == 2)
+            
+            m_Spawned = true;
+            
+            if (m_DecorAmount < 1)
             {
-                // NEEDS Right opening
-                int r = Random.Range(0, m_RT.m_RightRooms.Length);
-                Instantiate(m_RT.m_RightRooms[r], transform.position, Quaternion.identity);
+                m_DecorAmount = Mathf.RoundToInt(GameManager.instance.GetRandomRange(0, m_MaxDecorAllowed));
             }
-            else if(m_OpenDir == 3)
-            {
-                // NEEDS Bottom opening
-                int r = Random.Range(0, m_RT.m_BottomRooms.Length);
-                Instantiate(m_RT.m_BottomRooms[r], transform.position, Quaternion.identity);
-            }
-            else if(m_OpenDir == 4)
-            {
-                // NEEDS Left opening
-                int r = Random.Range(0, m_RT.m_LeftRooms.Length);
-                Instantiate(m_RT.m_LeftRooms[r], transform.position, Quaternion.identity);
-            }
-            spawned = true;
+            DecorateRoom();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "SpawnPoint")
         {
-            /*if (other.gameObject.GetComponent<RoomSpawner>().spawned == false && spawned == false)
+            /*if (other.gameObject.tag == "SpawnPoint")
             {
-                Instantiate(m_RT.m_Closed, this.gameObject.transform.position, Quaternion.identity);
-                spawned = true;
-                other.GetComponent<RoomSpawner>().spawned = true;
-                Destroy(this.transform.parent.gameObject);
+                if (m_Spawned == false && other.gameObject.GetComponent<RoomSpawner>().m_Spawned == false)
+                {
+                    Instantiate(m_RT.m_Closed, gameObject.transform.position, Quaternion.identity);
+                    
+                    m_Spawned = true;
+                    other.GetComponent<RoomSpawner>().m_Spawned = true;
+                    
+                    Destroy(transform.parent.gameObject);
+                    Destroy(other.transform.parent.gameObject);
+                }
+                else if (m_Spawned == true && other.gameObject.GetComponent<RoomSpawner>().m_Spawned == false)
+                {
+                    Destroy(other.transform.parent.gameObject);
+                }
             }*/
 
-            Destroy(this);
+            if (other.CompareTag("SpawnPoint"))
+            {
+                if (other.GetComponent<RoomSpawner>().m_Spawned == false && m_Spawned == false)
+                {
+                    Instantiate(m_RT.m_Closed, gameObject.transform.position, Quaternion.identity);
+                    Destroy(gameObject);
+                }
+
+                m_Spawned = true;
+            }
+        }
+
+        private void DecorateRoom()
+        {
+            for (int i = 0; i < m_DecorAmount; i++)
+            {
+                int r = Mathf.FloorToInt(GameManager.instance.GetRandomRange(0, m_RT.m_Decorations.Length));
+                GameObject go = m_RT.m_Decorations[r];
+
+                float posX = transform.position.x;
+                float posY = transform.position.y;
+                float offsetX = GameManager.instance.GetRandomRange(-3f, 3f);
+                float offsetY = GameManager.instance.GetRandomRange(-3f, 3f);
+                Vector2 roomTransform = new Vector2(posX + offsetX, posY + offsetY);
+
+                Instantiate(go, roomTransform, Quaternion.identity);
+            }
         }
     }
-}

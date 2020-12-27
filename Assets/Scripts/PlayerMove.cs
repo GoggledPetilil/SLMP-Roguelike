@@ -21,15 +21,30 @@ public class PlayerMove : Entity
     
     [Header("Player Components")]
     private State m_state;
+    public HealthBar m_HealthBar;
+    public SpriteRenderer m_AtkBoostIcon;
+    public SpriteRenderer m_DefBoostIcon;
+    public SpriteRenderer m_SpdBoostIcon;
     
     // Start is called before the first frame update
     void Start()
     {
-        InitializeCharacter();
+        if (GameManager.instance.m_Player == null)
+        {
+            GameManager.instance.m_Player = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
         
+        InitializeCharacter();
         m_state = State.Normal;
-
         m_RollSpeedOrigin = m_RollSpeed;
+        m_HealthBar.SetHealthText(m_HP, m_MaxHP);
+        m_HealthBar.SetHealthBar(m_HP / m_MaxHP);
+        ChangeStatBoost(0, 0, 0f);
     }
 
     // Update is called once per frame
@@ -73,8 +88,13 @@ public class PlayerMove : Entity
                 m_ActionTimer -= 1 * Time.deltaTime;
                 ReduceInvincibility();
 
-                if (m_Damaged == true)
+                bool wasDamaged = m_Damaged;
+                
+                if (m_Damaged == true && wasDamaged == false)
                 {
+                    // The player just changed to damaged this frame, so only calling this once;
+                    ChangeHealth(0);
+                    ChangeStatBoost(-m_AtkBonus, 2, 0f);
                     m_state = State.Damaged;
                 }
                 break;
@@ -140,5 +160,55 @@ public class PlayerMove : Entity
     private void ReturnCooldown()
     {
         m_ActionTimer = m_ActionCooldown;
+    }
+
+    public void ChangeHealth(int HealthModifier)
+    {
+        m_HP += HealthModifier;
+        if (m_HP > m_MaxHP)
+        {
+            m_HP = m_MaxHP;
+        }
+        else if(m_HP < 0)
+        {
+            m_HP = 0;
+        }
+        
+        m_HealthBar.SetHealthBar((float)m_HP / (float)m_MaxHP);
+        m_HealthBar.SetHealthText(m_HP, m_MaxHP);
+    }
+
+    public void ChangeStatBoost(int AtkBoost, int DefBoost, float SpdBoost)
+    {
+        m_AtkBonus += AtkBoost;
+        m_DefBonus += DefBoost;
+        m_SpdBonus += SpdBoost;
+
+        if (m_AtkBonus > 0)
+        {
+            m_AtkBoostIcon.color = new Color(1f, 1f, 1f, 1f);
+        }
+        else
+        {
+            m_AtkBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+        }
+        
+        if (m_DefBonus > 0)
+        {
+            m_DefBoostIcon.color = new Color(1f, 1f, 1f, 1f);
+        }
+        else
+        {
+            m_DefBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+        }
+        
+        if (m_SpdBonus > 0)
+        {
+            m_SpdBoostIcon.color = new Color(1f, 1f, 1f, 1f);
+        }
+        else
+        {
+            m_SpdBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+        }
     }
 }

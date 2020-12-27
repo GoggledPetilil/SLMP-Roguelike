@@ -9,6 +9,8 @@ TagManager:
   - Rooms
   - Entity
   - Attack
+  - Item
+  - Decor
   layers:
   - Default
   - TransparentFX

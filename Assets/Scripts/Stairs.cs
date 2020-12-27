@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 
 public class Stairs : MonoBehaviour
@@ -11,12 +10,20 @@ public class Stairs : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            // Erase all the walls, items and enemies.
-            // Set Player back to 0, 0.
-            // Spawn new Start Room
-            // Generate new dungeon
+            RoomTemplates m_RT;
+            m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+            m_RT.ClearAll();
 
-            SceneManager.LoadScene("SampleScene");
+            PlayerMove p = GameManager.instance.m_Player;
+            p.ChangeStatBoost(0, 0, -p.m_SpdBonus);
+            GameManager.instance.IncreaseFloor();
+            
+            Destroy(this.gameObject);
+        }
+
+        if (other.gameObject.tag == "Item" || other.gameObject.tag == "Decor")
+        {
+            Destroy(other.gameObject);
         }
     }
 }

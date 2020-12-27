@@ -21,7 +21,7 @@ public class Entity : MonoBehaviour
     [Header("Entity Multipliers")] 
     public int m_AtkBonus;  
     public int m_DefBonus;
-    public int m_SpdBonus; 
+    public float m_SpdBonus; 
     
     [Header("Entity Physics")]
     public Vector2 m_MovDir;
@@ -38,7 +38,7 @@ public class Entity : MonoBehaviour
     
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.transform.root != transform.root && other.gameObject.tag == "Attack" && m_Damaged == false && m_IsInvincible == false)
+        if (other.transform.root.tag != transform.root.tag && other.gameObject.tag == "Attack" && m_Damaged == false && m_IsInvincible == false)
         {
             Entity otherEntity = other.transform.root.GetComponent<Entity>();
             int m_EnemyAtk = otherEntity.m_Attack + otherEntity.m_AtkBonus;
@@ -179,6 +179,8 @@ public class Entity : MonoBehaviour
     {
         if (this.gameObject.tag == "Entity")
         {
+            EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
+            m_Generator.RemoveDeadEnemies();
             Destroy(this.gameObject);
         }
         else if (this.gameObject.tag == "Player")
