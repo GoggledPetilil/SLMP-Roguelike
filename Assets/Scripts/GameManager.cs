@@ -10,9 +10,12 @@ public class GameManager : MonoBehaviour
     public PlayerMove m_Player;
     public int m_Floor;
     public int m_Money;
+    public AudioSource m_AudioSource;
     
     public int m_EnemiesKilled;
     public bool m_HiddenStairsSpawned;
+
+    public Animator m_Screen;
 
     // Start is called before the first frame update
     void Start()
@@ -51,5 +54,21 @@ public class GameManager : MonoBehaviour
     {
         float i = Random.Range(min, max);
         return i;
+    }
+
+    public void ScreenFadeIn()
+    {
+        m_Screen.Play("Fade_In");
+    }
+    
+    public void ScreenFadeOut()
+    {
+        m_Screen.Play("Fade_Out");
+    }
+
+    public void PlayAudio(AudioClip audioClip)
+    {
+        m_AudioSource.clip = audioClip;
+        m_AudioSource.Play();
     }
 }

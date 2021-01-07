@@ -25,6 +25,10 @@ public class PlayerMove : Entity
     public SpriteRenderer m_AtkBoostIcon;
     public SpriteRenderer m_DefBoostIcon;
     public SpriteRenderer m_SpdBoostIcon;
+
+    [Header("Player Audio")] 
+    public AudioClip m_SwordSwing;
+    public AudioClip m_RollSFX;
     
     // Start is called before the first frame update
     void Start()
@@ -66,19 +70,24 @@ public class PlayerMove : Entity
                 }
         
                 MoveAni();
+                
+                StopDust();
 
                 if (Input.GetButtonDown("Roll") && m_ActionTimer <= 0)
                 {
+                    PlayAudio(m_RollSFX);
                     CreateDust();
-                    m_IsInvincible = true;
+                    m_Invincible = true;
                     ActionDirToDirection();
                     m_state = State.Rolling;
                     m_ani.SetBool("isRolling", true);
+                    StartCoroutine(InvincibleFrames(1f + (m_Defence + m_DefBonus) / 100));
                 }
 
                 if (Input.GetButtonDown("Attack") && m_ActionTimer <= 0)
                 {
-                    m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    PlayAudio(m_SwordSwing);
+                    FreezeMovement(true);
                     m_MovDir = new Vector2(0f, 0f);
                     ActionDirToDirection();
                     m_state = State.Attacking;
@@ -86,15 +95,14 @@ public class PlayerMove : Entity
                 }
 
                 m_ActionTimer -= 1 * Time.deltaTime;
-                ReduceInvincibility();
 
-                bool wasDamaged = m_Damaged;
+                bool wasDamaged = m_Invincible;
                 
-                if (m_Damaged == true && wasDamaged == false)
+                if (m_Invincible != wasDamaged)
                 {
                     // The player just changed to damaged this frame, so only calling this once;
                     ChangeHealth(0);
-                    ChangeStatBoost(-m_AtkBonus, 2, 0f);
+                    ChangeStatBoost(-m_AtkBonus, 0, 0f);
                     m_state = State.Damaged;
                 }
                 break;
@@ -111,7 +119,7 @@ public class PlayerMove : Entity
                     StopDust();
                     m_ani.SetBool("isRolling", false);
                     ReturnCooldown();
-                    m_IsInvincible = false;
+                    m_Invincible = true;
                     m_state = State.Normal;
                 }
                 break;
@@ -121,7 +129,6 @@ public class PlayerMove : Entity
                 float m_KnockSpeedMinimum = 1;
                 if (m_KnockbackSpeed < m_KnockSpeedMinimum)
                 {
-                    StopDust();
                     m_rb.velocity = Vector2.zero;
                     m_KnockbackDir = Vector2.zero;
                     m_state = State.Normal;
@@ -154,7 +161,7 @@ public class PlayerMove : Entity
         yield return new WaitForSeconds(0.3f);
         ReturnCooldown();
         m_state = State.Normal;
-        m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        FreezeMovement(false);
     }
 
     private void ReturnCooldown()

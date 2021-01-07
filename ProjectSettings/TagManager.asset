@@ -20,8 +20,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Entity
+  - Wall
   - 
   - 
   - 
@@ -50,4 +50,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 636977255
+    locked: 0
+  - name: UI
+    uniqueID: 3505599907
     locked: 0

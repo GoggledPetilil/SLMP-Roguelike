@@ -9,6 +9,7 @@ public class ItemSpawner : MonoBehaviour
     private RoomTemplates m_RT;
     public GameObject[] m_Items;
     public int m_ItemsAllowed;
+    public bool m_AllItemsSpawned;
     
     // Start is called before the first frame update
     void Start()
@@ -24,9 +25,18 @@ public class ItemSpawner : MonoBehaviour
             SpawnItems();
             m_ItemsAllowed--;
         }
+        else if (m_RT.m_StairsAppeared == true && m_ItemsAllowed < 1)
+        {
+            if (m_AllItemsSpawned == false)
+            {
+                GameManager.instance.ScreenFadeIn();
+                m_AllItemsSpawned = true;
+            }
+        }
         else if (m_RT.m_StairsAppeared == false && m_ItemsAllowed < 1)
         {
             m_ItemsAllowed = Mathf.RoundToInt(GameManager.instance.GetRandomRange(2, 8));
+            m_AllItemsSpawned = false;
         }
     }
     

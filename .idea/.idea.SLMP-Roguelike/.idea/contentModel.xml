@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Scripts" t="Include">
           <e p="AddRoom.cs" t="Include" />
+          <e p="AntiSpawnClog.cs" t="Include" />
           <e p="CameraFollow.cs" t="Include" />
           <e p="DestroyWalls.cs" t="Include" />
           <e p="EnemyBehaviour.cs" t="Include" />
@@ -26,6 +27,7 @@
           <e p="RoomSpawner.cs" t="Include" />
           <e p="RoomTemplates.cs" t="Include" />
           <e p="Stairs.cs" t="Include" />
+          <e p="TeleportToSpawn.cs" t="Include" />
         </e>
       </e>
       <e p="SLMP-Roguelike.sln" t="IncludeFlat" />

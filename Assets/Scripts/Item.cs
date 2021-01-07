@@ -25,6 +25,9 @@ public class Item : MonoBehaviour
     public int m_DefBoost;
     public float m_SpdBoost;
 
+    [Header("Audio Components")] 
+    public AudioClip m_Collected;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")
@@ -47,7 +50,9 @@ public class Item : MonoBehaviour
                     GameManager.instance.m_Player.ChangeStatBoost(m_AtkBoost, m_DefBoost, m_SpdBoost);
                 break;
             }
-            Destroy(this.gameObject);
+
+            GameManager.instance.PlayAudio(m_Collected);
+            Destroy(gameObject);
         }
     }
 }

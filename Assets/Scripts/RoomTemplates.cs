@@ -17,8 +17,7 @@ public class RoomTemplates : MonoBehaviour
     public GameObject m_Stairs;
     public float m_Timer;
     public bool m_StairsAppeared;
-
-    [SerializeField]private bool m_ClearAll;
+    public AudioClip m_HiddenStairsSFX;
 
     // Update is called once per frame
     void Update()
@@ -31,12 +30,6 @@ public class RoomTemplates : MonoBehaviour
         else if(m_StairsAppeared == false)
         {
             m_Timer -= Time.deltaTime;
-        }
-
-        if (m_ClearAll == true)
-        {
-            m_ClearAll = false;
-            ClearAll();
         }
     }
 
@@ -72,7 +65,7 @@ public class RoomTemplates : MonoBehaviour
 
     public void StairsToSpawn()
     {
-        // Include sound effect to let Player know.
+        GameManager.instance.PlayAudio(m_HiddenStairsSFX);
         Instantiate(m_Stairs, m_RoomsList[0].transform.position, Quaternion.identity);
     }
 }

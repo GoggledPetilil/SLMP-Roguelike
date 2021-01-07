@@ -51,6 +51,7 @@ MonoBehaviour:
   m_AtkBoost: 0
   m_DefBoost: 1
   m_SpdBoost: 0
+  m_Collected: {fileID: 8300000, guid: 03b540a2a0ddd76e4a29c2ef69d6c6df, type: 3}
 --- !u!61 &3425023599180984860
 BoxCollider2D:
   m_ObjectHideFlags: 0

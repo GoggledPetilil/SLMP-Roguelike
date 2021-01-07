@@ -16,7 +16,6 @@ public class Entity : MonoBehaviour
     public float m_Speed;
     public float m_KnockbackSpeed;
     public float m_InvincibilityTime;
-    public bool m_IsInvincible;
 
     [Header("Entity Multipliers")] 
     public int m_AtkBonus;  
@@ -26,8 +25,8 @@ public class Entity : MonoBehaviour
     [Header("Entity Physics")]
     public Vector2 m_MovDir;
     public Vector2 m_ActionDir;
-    public bool m_Damaged;
     public Vector2 m_KnockbackDir;
+    public bool m_Invincible;
     
     [Header("Entity Components")] 
     public Animator m_ani;
@@ -35,10 +34,17 @@ public class Entity : MonoBehaviour
     public GameObject m_CharacterSprite;
     public SpriteRenderer m_Sprite;
     public ParticleSystem m_Dust;
-    
+    public ParticleSystem m_Explosion;
+    public AudioSource m_AudioSource;
+
+    [Header("Entity Audio")] 
+    public AudioClip m_Hurt;
+    public AudioClip m_HurtBadly;
+    public AudioClip m_Death;
+
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.transform.root.tag != transform.root.tag && other.gameObject.tag == "Attack" && m_Damaged == false && m_IsInvincible == false)
+        if (other.transform.root.tag != transform.root.tag && other.gameObject.tag == "Attack" && m_Invincible == false)
         {
             Entity otherEntity = other.transform.root.GetComponent<Entity>();
             int m_EnemyAtk = otherEntity.m_Attack + otherEntity.m_AtkBonus;
@@ -46,10 +52,10 @@ public class Entity : MonoBehaviour
             m_KnockbackSpeed = 1.8f + m_EnemyAtk * 0.1f;
             m_KnockbackDir.x = Mathf.Round(otherEntity.m_ActionDir.x);
             m_KnockbackDir.y = Mathf.Round(otherEntity.m_ActionDir.y);
-            
-            m_Sprite.color = new Color(0f, 0f, 0f, 0.5f);
+
             TakeDamage(m_EnemyAtk);
             KnockbackStartUp();
+            StartCoroutine(InvincibleFrames(1.5f + (m_Defence + m_DefBonus) / 100));
         }
     }
 
@@ -71,6 +77,18 @@ public class Entity : MonoBehaviour
             m_CharacterSprite.transform.localScale = Vector3.Lerp(m_NewSize, m_OriginSize, t);
             yield return null;
         }
+    }
+
+    public IEnumerator InvincibleFrames(float time)
+    {
+        m_Invincible = true;
+        Physics2D.IgnoreLayerCollision(8, 8, true);
+        m_Sprite.color = new Color(1f, 1f, 1f, 0.5f);
+        yield return new WaitForSeconds(time);
+        Physics2D.IgnoreLayerCollision(8, 8, false);
+        m_Sprite.color = new Color(1f, 1f, 1f, 1f);
+        m_Invincible = false;
+        yield return null;
     }
 
     // Because the Start method doesn't work.
@@ -122,6 +140,8 @@ public class Entity : MonoBehaviour
 
     public void TakeDamage(int m_EnemyAttack)
     {
+        m_AudioSource.clip = m_Hurt;
+        
         int damage = m_EnemyAttack - (m_Defence + m_DefBonus);
         if (damage < 1)
         {
@@ -129,17 +149,18 @@ public class Entity : MonoBehaviour
         }
         else if (damage >= m_HP)
         {
+            m_AudioSource.clip = m_HurtBadly;
             damage = damage * 3 + m_EnemyAttack;
             // To make the lethal hit extra flashy.
         }
         
-        Debug.Log(this.gameObject.name + " took " + damage + " damage.");
-
+        m_AudioSource.Play();
         m_HP -= damage;
 
         if (m_HP < 1)
         {
             m_HP = 0;
+            GameManager.instance.PlayAudio(m_Death);
             Death();
         }
     }
@@ -157,30 +178,22 @@ public class Entity : MonoBehaviour
     public void KnockbackStartUp()
     {
         CreateDust();
-        m_Damaged = true;
-        m_InvincibilityTime = 1.5f + (m_Defence + m_DefBonus) / 100;
         StartCoroutine(Squeeze(0.5f, 1.2f, 0.01f));
-    }
-
-    public void ReduceInvincibility()
-    {
-        if (m_InvincibilityTime > 0)
-        {
-            m_InvincibilityTime -= 1 * Time.deltaTime;
-        }
-        else
-        {
-            m_Damaged = false;
-            m_Sprite.color = new Color(1f, 1f, 1f, 1f);
-        }
     }
 
     public void Death()
     {
+        FreezeMovement(true);
+        m_Sprite.color = new Color(1f, 1f, 1f, 0f);
+        m_Explosion.Play();
+        
         if (this.gameObject.tag == "Entity")
         {
+            GameManager.instance.m_EnemiesKilled++;
+            
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();
+            
             Destroy(this.gameObject);
         }
         else if (this.gameObject.tag == "Player")
@@ -204,5 +217,24 @@ public class Entity : MonoBehaviour
 
         float spdUp = 0.01f;
         m_Speed += spdUp;
+    }
+
+    public void FreezeMovement(bool state)
+    {
+        if (state == true)
+        {
+            m_rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        }
+        else
+        {
+            m_rb.constraints = RigidbodyConstraints2D.None;
+        }
+        m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    }
+
+    public void PlayAudio(AudioClip audioClip)
+    {
+        m_AudioSource.clip = audioClip;
+        m_AudioSource.Play();
     }
 }

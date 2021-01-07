@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyBehaviour : Entity
 {
@@ -19,6 +21,8 @@ public class EnemyBehaviour : Entity
     public GameObject m_TargetObject;
     public Vector3 m_TargetPos;
     private float m_Interest; // How long the enemy is interested in a location.
+    public float m_UnseenTimer; // How long the enemy is unseen by the player.
+    public bool m_IsSeen;
     
     [Header("Enemy Components")]
     private State m_state;
@@ -49,7 +53,7 @@ public class EnemyBehaviour : Entity
                 }
                 
                 CheckSight();
-                ReduceInvincibility();
+                StopDust();
                 if (Vector2.Distance(transform.position, m_TargetPos) <= m_Sight || m_Interest < 0)
                 {
                     // In Sight or bored, change interest.
@@ -60,7 +64,7 @@ public class EnemyBehaviour : Entity
                     m_Interest -= Time.deltaTime;
                 }
                 
-                if (m_Damaged == true)
+                if (m_Invincible == true)
                 {
                     m_state = State.Damaged;
                 }
@@ -73,9 +77,9 @@ public class EnemyBehaviour : Entity
                 }
                 
                 CheckSight();
-                ReduceInvincibility();
+                StopDust();
                 
-                if (m_Damaged == true)
+                if (m_Invincible == true)
                 {
                     m_state = State.Damaged;
                 }
@@ -86,7 +90,6 @@ public class EnemyBehaviour : Entity
                 float m_KnockSpeedMinimum = 1;
                 if (m_KnockbackSpeed < m_KnockSpeedMinimum)
                 {
-                    StopDust();
                     m_rb.velocity = Vector2.zero;
                     m_KnockbackDir = Vector2.zero;
                     m_state = State.Normal;
@@ -94,7 +97,7 @@ public class EnemyBehaviour : Entity
                 break;
         }
     }
-    
+
     void FixedUpdate()
     {
         switch (m_state)
@@ -133,5 +136,27 @@ public class EnemyBehaviour : Entity
 
         m_TargetPos = m_RT.m_RoomsList[r].transform.position;
         m_Interest = 10f;
+    }
+
+    private void WhileUnSeen()
+    {
+        if (m_IsSeen == false && m_UnseenTimer > 30)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            m_UnseenTimer += Time.deltaTime;
+        }
+    }
+
+    private void OnBecameInvisible()
+    {
+        m_IsSeen = false;
+    }
+
+    private void OnBecameVisible()
+    {
+        m_IsSeen = true;
     }
 }
