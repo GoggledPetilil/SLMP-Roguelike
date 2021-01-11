@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 935965781c1467c40b4c6c4e0af91824
+guid: d9a22508d899aaa95b721c6af3e5e08e
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Dimbo
+  - Gamer
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

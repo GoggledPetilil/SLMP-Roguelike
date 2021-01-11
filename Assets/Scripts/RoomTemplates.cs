@@ -32,8 +32,15 @@ public class RoomTemplates : MonoBehaviour
             m_Timer -= Time.deltaTime;
         }
     }
+    
+    public IEnumerator ResetDungeon()
+    {
+        GameManager.instance.ScreenFadeOut();
+        yield return new WaitForSeconds(0.5f);
+        ClearAll();
+    }
 
-    public void ClearAll()
+    private void ClearAll()
     {
         List<GameObject> allEntities = new List<GameObject>(GameObject.FindGameObjectsWithTag("Entity"));
         allEntities.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("Attack")));

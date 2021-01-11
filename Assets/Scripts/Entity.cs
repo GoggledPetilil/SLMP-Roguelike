@@ -20,9 +20,9 @@ public class Entity : MonoBehaviour
     [Header("Entity Multipliers")] 
     public int m_AtkBonus;  
     public int m_DefBonus;
-    public float m_SpdBonus; 
-    
-    [Header("Entity Physics")]
+    public float m_SpdBonus;
+
+    [Header("Entity Physics")] public bool m_CanMove;
     public Vector2 m_MovDir;
     public Vector2 m_ActionDir;
     public Vector2 m_KnockbackDir;
@@ -34,7 +34,6 @@ public class Entity : MonoBehaviour
     public GameObject m_CharacterSprite;
     public SpriteRenderer m_Sprite;
     public ParticleSystem m_Dust;
-    public ParticleSystem m_Explosion;
     public AudioSource m_AudioSource;
 
     [Header("Entity Audio")] 
@@ -46,6 +45,7 @@ public class Entity : MonoBehaviour
     {
         if (other.transform.root.tag != transform.root.tag && other.gameObject.tag == "Attack" && m_Invincible == false)
         {
+            Debug.Log(gameObject.transform.root.name + " got hit by " + other.transform.root.name);
             Entity otherEntity = other.transform.root.GetComponent<Entity>();
             int m_EnemyAtk = otherEntity.m_Attack + otherEntity.m_AtkBonus;
             
@@ -54,6 +54,11 @@ public class Entity : MonoBehaviour
             m_KnockbackDir.y = Mathf.Round(otherEntity.m_ActionDir.y);
 
             TakeDamage(m_EnemyAtk);
+            if (gameObject.tag == "Player")
+            {
+                GameManager.instance.m_Player.HealthUpdate();
+                GameManager.instance.m_Player.ChangeStatBoost(-m_AtkBonus, 0, 0f);
+            }
             KnockbackStartUp();
             StartCoroutine(InvincibleFrames(1.5f + (m_Defence + m_DefBonus) / 100));
         }
@@ -156,6 +161,8 @@ public class Entity : MonoBehaviour
         
         m_AudioSource.Play();
         m_HP -= damage;
+        string t = "-" + damage.ToString();
+        GameManager.instance.SpawnPopUp(t, transform.position);
 
         if (m_HP < 1)
         {
@@ -183,9 +190,11 @@ public class Entity : MonoBehaviour
 
     public void Death()
     {
+        Physics2D.IgnoreLayerCollision(8, 8, false);
         FreezeMovement(true);
         m_Sprite.color = new Color(1f, 1f, 1f, 0f);
-        m_Explosion.Play();
+        float destroyDelay = 0.3f;
+        GameManager.instance.SpawnExplosion(transform.position);
         
         if (this.gameObject.tag == "Entity")
         {
@@ -194,29 +203,21 @@ public class Entity : MonoBehaviour
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();
             
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, destroyDelay);
         }
         else if (this.gameObject.tag == "Player")
         {
-            Debug.Log("Player has died!");
+            Debug.Log("Player Died");
+            RoomTemplates m_RT;
+            m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+            m_RT.StartCoroutine("ResetDungeon");
+            
+            GameManager.instance.m_Floor = 1;
+            GameManager.instance.UpdateFloorText();
+
+            GameManager.instance.m_Player.m_HP = GameManager.instance.m_Player.m_MaxHP;
+            GameManager.instance.m_Player.HealthUpdate();
         }
-        
-    }
-
-    public void LevelUp()
-    {
-        m_Level++;
-
-        int hpUp = 10;
-        m_MaxHP += hpUp;
-        m_HP += hpUp;
-
-        int paraUp = 1;
-        m_Attack += paraUp;
-        m_Defence += paraUp;
-
-        float spdUp = 0.01f;
-        m_Speed += spdUp;
     }
 
     public void FreezeMovement(bool state)

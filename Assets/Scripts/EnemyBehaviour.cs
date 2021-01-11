@@ -10,7 +10,6 @@ public class EnemyBehaviour : Entity
     {
         Normal,
         Chasing,
-        Attacking,
         Damaged
     }
     
@@ -36,6 +35,8 @@ public class EnemyBehaviour : Entity
         m_state = State.Normal;
         
         m_TargetObject = GameObject.Find("Player");
+
+        LevelUp(1 + Mathf.FloorToInt(GameManager.instance.m_Floor / 2));
     }
 
     // Update is called once per frame
@@ -53,7 +54,6 @@ public class EnemyBehaviour : Entity
                 }
                 
                 CheckSight();
-                StopDust();
                 if (Vector2.Distance(transform.position, m_TargetPos) <= m_Sight || m_Interest < 0)
                 {
                     // In Sight or bored, change interest.
@@ -64,10 +64,12 @@ public class EnemyBehaviour : Entity
                     m_Interest -= Time.deltaTime;
                 }
                 
-                if (m_Invincible == true)
+                if (m_Invincible == true && m_KnockbackSpeed > 1)
                 {
                     m_state = State.Damaged;
                 }
+                
+                WhileUnSeen();
                 break;
             case State.Chasing:
                 m_MovDir = ((m_TargetObject.transform.position) - transform.position).normalized;
@@ -77,7 +79,6 @@ public class EnemyBehaviour : Entity
                 }
                 
                 CheckSight();
-                StopDust();
                 
                 if (m_Invincible == true)
                 {
@@ -90,6 +91,7 @@ public class EnemyBehaviour : Entity
                 float m_KnockSpeedMinimum = 1;
                 if (m_KnockbackSpeed < m_KnockSpeedMinimum)
                 {
+                    StopDust();
                     m_rb.velocity = Vector2.zero;
                     m_KnockbackDir = Vector2.zero;
                     m_state = State.Normal;
@@ -100,18 +102,20 @@ public class EnemyBehaviour : Entity
 
     void FixedUpdate()
     {
-        switch (m_state)
+        if (m_CanMove == true)
         {
-            case State.Normal:
-                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
-                break;
-            case State.Chasing:
-                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
-                break;
-            
-            case State.Damaged:
-                m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
-                break;
+            switch (m_state)
+            {
+                case State.Normal:
+                    m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
+                    break;
+                case State.Chasing:
+                    m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
+                    break;
+                case State.Damaged:
+                    m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
+                    break;
+            }
         }
     }
 
@@ -140,8 +144,9 @@ public class EnemyBehaviour : Entity
 
     private void WhileUnSeen()
     {
-        if (m_IsSeen == false && m_UnseenTimer > 30)
+        if (m_UnseenTimer > 30)
         {
+            Debug.Log(gameObject.name + " got destroyed, due to being inactive.");
             Destroy(gameObject);
         }
         else
@@ -150,13 +155,19 @@ public class EnemyBehaviour : Entity
         }
     }
 
-    private void OnBecameInvisible()
+    private void LevelUp(int level)
     {
-        m_IsSeen = false;
-    }
+        m_Level = level;
 
-    private void OnBecameVisible()
-    {
-        m_IsSeen = true;
+        int hpUp = 5 * (level - 1);
+        m_MaxHP += hpUp;
+        m_HP += hpUp;
+
+        int paraUp = 1 * (level - 1);
+        m_Attack += paraUp;
+        m_Defence += paraUp;
+
+        float spdUp = 0.01f * (level - 1);
+        m_Speed += spdUp;
     }
 }

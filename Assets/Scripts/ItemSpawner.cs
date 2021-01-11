@@ -30,6 +30,7 @@ public class ItemSpawner : MonoBehaviour
             if (m_AllItemsSpawned == false)
             {
                 GameManager.instance.ScreenFadeIn();
+                GameManager.instance.FreezeAllEntities(false);
                 m_AllItemsSpawned = true;
             }
         }

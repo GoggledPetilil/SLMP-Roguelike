@@ -20,6 +20,7 @@
           <e p="HealthBar.cs" t="Include" />
           <e p="Item.cs" t="Include" />
           <e p="ItemSpawner.cs" t="Include" />
+          <e p="KillEffects.cs" t="Include" />
           <e p="MoneyText.cs" t="Include" />
           <e p="PlayerMove.cs" t="Include" />
           <e p="QuitGame.cs" t="Include" />

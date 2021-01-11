@@ -17,10 +17,10 @@ public class PlayerMove : Entity
     public float m_RollSpeed;
     private float m_RollSpeedOrigin;
     public float m_ActionCooldown;
-    private float m_ActionTimer;
+    public float m_ActionTimer;
     
     [Header("Player Components")]
-    private State m_state;
+    public State m_state;
     public HealthBar m_HealthBar;
     public SpriteRenderer m_AtkBoostIcon;
     public SpriteRenderer m_DefBoostIcon;
@@ -57,6 +57,11 @@ public class PlayerMove : Entity
         switch (m_state)
         { 
             case State.Normal:
+                if (m_Invincible == true && m_KnockbackSpeed > 1)
+                {
+                    m_state = State.Damaged;
+                }
+                
                 float m_MovX = 0f;
                 float m_MovY = 0f;
         
@@ -70,8 +75,6 @@ public class PlayerMove : Entity
                 }
         
                 MoveAni();
-                
-                StopDust();
 
                 if (Input.GetButtonDown("Roll") && m_ActionTimer <= 0)
                 {
@@ -95,16 +98,6 @@ public class PlayerMove : Entity
                 }
 
                 m_ActionTimer -= 1 * Time.deltaTime;
-
-                bool wasDamaged = m_Invincible;
-                
-                if (m_Invincible != wasDamaged)
-                {
-                    // The player just changed to damaged this frame, so only calling this once;
-                    ChangeHealth(0);
-                    ChangeStatBoost(-m_AtkBonus, 0, 0f);
-                    m_state = State.Damaged;
-                }
                 break;
             case State.Rolling:
                 float m_RollMultiplier = 10f; // How fast the rolling speed decreases.
@@ -124,11 +117,14 @@ public class PlayerMove : Entity
                 }
                 break;
             case State.Damaged:
-                m_KnockbackSpeed -= m_KnockbackSpeed * (m_Defence + m_DefBonus) * Time.deltaTime;
+                float m_KnockBackMulti = m_Defence + m_DefBonus; // How fast the knockback speed decreases.
+                
+                m_KnockbackSpeed -= m_KnockbackSpeed * m_KnockBackMulti * Time.deltaTime;
 
                 float m_KnockSpeedMinimum = 1;
                 if (m_KnockbackSpeed < m_KnockSpeedMinimum)
                 {
+                    StopDust();
                     m_rb.velocity = Vector2.zero;
                     m_KnockbackDir = Vector2.zero;
                     m_state = State.Normal;
@@ -139,17 +135,20 @@ public class PlayerMove : Entity
 
     void FixedUpdate()
     {
-        switch (m_state)
+        if (m_CanMove == true)
         {
-            case State.Normal:
-                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
-                break;
-            case State.Rolling:
-                m_rb.velocity = m_ActionDir * ((m_Speed + m_SpdBonus) * m_RollSpeed);
-                break;
-            case State.Damaged:
-                m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
-                break;
+            switch (m_state)
+            {
+                case State.Normal:
+                    m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
+                    break;
+                case State.Rolling:
+                    m_rb.velocity = m_ActionDir * ((m_Speed + m_SpdBonus) * m_RollSpeed);
+                    break;
+                case State.Damaged:
+                    m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
+                    break;
+            }
         }
     }
     
@@ -169,9 +168,8 @@ public class PlayerMove : Entity
         m_ActionTimer = m_ActionCooldown;
     }
 
-    public void ChangeHealth(int HealthModifier)
+    public void HealthUpdate()
     {
-        m_HP += HealthModifier;
         if (m_HP > m_MaxHP)
         {
             m_HP = m_MaxHP;
