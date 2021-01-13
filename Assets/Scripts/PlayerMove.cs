@@ -10,12 +10,15 @@ public class PlayerMove : Entity
         Normal,
         Attacking,
         Rolling,
-        Damaged
+        Damaged,
+        Frozen
     }
+
+    [Header("Player Parameters")] 
+    public int m_Exp;
     
     [Header("Player Physics")]
     public float m_RollSpeed;
-    private float m_RollSpeedOrigin;
     public float m_ActionCooldown;
     public float m_ActionTimer;
     
@@ -29,6 +32,7 @@ public class PlayerMove : Entity
     [Header("Player Audio")] 
     public AudioClip m_SwordSwing;
     public AudioClip m_RollSFX;
+    public AudioClip m_LevelUpJingle;
     
     // Start is called before the first frame update
     void Start()
@@ -44,8 +48,9 @@ public class PlayerMove : Entity
         }
         
         InitializeCharacter();
+        SetRollSpeed();
         m_state = State.Normal;
-        m_RollSpeedOrigin = m_RollSpeed;
+        
         m_HealthBar.SetHealthText(m_HP, m_MaxHP);
         m_HealthBar.SetHealthBar(m_HP / m_MaxHP);
         ChangeStatBoost(0, 0, 0f);
@@ -64,10 +69,13 @@ public class PlayerMove : Entity
                 
                 float m_MovX = 0f;
                 float m_MovY = 0f;
-        
-                m_MovX = Input.GetAxisRaw("Horizontal");
-                m_MovY = Input.GetAxisRaw("Vertical");
-        
+
+                if (m_CanMove)
+                {
+                    m_MovX = Input.GetAxisRaw("Horizontal");
+                    m_MovY = Input.GetAxisRaw("Vertical");
+                }
+                
                 m_MovDir = new Vector2(m_MovX, m_MovY).normalized;
                 if (m_MovX != 0 || m_MovY != 0)
                 {
@@ -97,7 +105,11 @@ public class PlayerMove : Entity
                     StartCoroutine("Attack");
                 }
 
-                m_ActionTimer -= 1 * Time.deltaTime;
+                if (m_ActionTimer > 0)
+                {
+                    m_ActionTimer -= 1 * Time.deltaTime;
+                }
+                
                 break;
             case State.Rolling:
                 float m_RollMultiplier = 10f; // How fast the rolling speed decreases.
@@ -107,8 +119,7 @@ public class PlayerMove : Entity
                 float m_RollSpeedMinimum = 1;
                 if (m_RollSpeed < m_RollSpeedMinimum)
                 {
-                    m_RollSpeed = m_RollSpeedOrigin;
-
+                    SetRollSpeed();
                     StopDust();
                     m_ani.SetBool("isRolling", false);
                     ReturnCooldown();
@@ -135,9 +146,7 @@ public class PlayerMove : Entity
 
     void FixedUpdate()
     {
-        if (m_CanMove == true)
-        {
-            switch (m_state)
+        switch (m_state)
             {
                 case State.Normal:
                     m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
@@ -149,7 +158,6 @@ public class PlayerMove : Entity
                     m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
                     break;
             }
-        }
     }
     
     private IEnumerator Attack()
@@ -165,7 +173,9 @@ public class PlayerMove : Entity
 
     private void ReturnCooldown()
     {
-        m_ActionTimer = m_ActionCooldown;
+        float speed = (m_Speed + m_SpdBonus) * 0.1f;
+        m_ActionTimer = (m_ActionCooldown - speed);
+        Debug.Log(m_ActionTimer);
     }
 
     public void HealthUpdate()
@@ -196,6 +206,7 @@ public class PlayerMove : Entity
         else
         {
             m_AtkBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+            m_AtkBonus = 0;
         }
         
         if (m_DefBonus > 0)
@@ -205,6 +216,7 @@ public class PlayerMove : Entity
         else
         {
             m_DefBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+            m_DefBonus = 0;
         }
         
         if (m_SpdBonus > 0)
@@ -214,6 +226,51 @@ public class PlayerMove : Entity
         else
         {
             m_SpdBoostIcon.color = new Color(0f, 0f, 0f, 1f);
+            m_SpdBonus = 0f;
         }
+    }
+
+    public void IncreaseEXP(int amount)
+    {
+        m_Exp += amount;
+        CheckEXP();
+    }
+
+    private void CheckEXP()
+    {
+        if (m_Exp >= 100 && m_Level < 99)
+        {
+            int amount = Mathf.FloorToInt(m_Exp / 100);
+            LevelUp(amount);
+        }
+    }
+    
+    private void LevelUp(int amount)
+    {
+        GameManager.instance.PlayAudio(m_LevelUpJingle);
+        GameManager.instance.SpawnLevelFX(transform.position, transform);
+        GameManager.instance.SpawnPopUp("LEVEL UP!", transform.position);
+        
+        m_Level += amount;
+
+        int hpUp = 3 * amount;
+        m_MaxHP += hpUp;
+        m_HP += hpUp;
+
+        int paraUp = 1 * amount;
+        m_Attack += paraUp;
+        m_Defence += paraUp;
+
+        float spdUp = 0.01f * amount;
+        m_Speed += spdUp;
+
+        m_Exp = 0;
+        
+        HealthUpdate();
+    }
+
+    private void SetRollSpeed()
+    {
+        m_RollSpeed = 2 + m_Speed + m_SpdBonus;
     }
 }

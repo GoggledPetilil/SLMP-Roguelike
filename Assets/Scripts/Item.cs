@@ -71,6 +71,7 @@ public class Item : MonoBehaviour
                 break;
             }
 
+            GameManager.instance.m_Player.IncreaseEXP(1);
             GameManager.instance.PlayAudio(m_Collected);
             Destroy(gameObject);
         }

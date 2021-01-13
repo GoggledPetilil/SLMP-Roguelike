@@ -14,9 +14,10 @@ public class GameManager : MonoBehaviour
     
     [Header("Effects")]
     public Animator m_Screen;
-    public GameObject m_Explosion;
     public GameObject m_PopUpText;
-    
+    public GameObject m_Explosion;
+    public GameObject m_LevelUpFX;
+
     [Header("Dungeon")]
     public int m_Floor;
     public int m_EnemiesKilled;
@@ -93,6 +94,11 @@ public class GameManager : MonoBehaviour
         popUp.transform.GetChild(0).GetComponent<TextMesh>().text = popText;
     }
 
+    public void SpawnLevelFX(Vector3 pos, Transform parent)
+    {
+        Instantiate(m_LevelUpFX, pos, Quaternion.identity, parent);
+    }
+
     public void FreezeAllEntities(bool isFrozen)
     {
         List<GameObject> allEntities = new List<GameObject>(GameObject.FindGameObjectsWithTag("Entity"));
@@ -100,24 +106,18 @@ public class GameManager : MonoBehaviour
         foreach (var go in allEntities)
         {
             go.GetComponent<Entity>().m_CanMove = !isFrozen;
-        }
-    }
-
-    public IEnumerator ScreenShake(float duration, float speed)
-    {
-        Vector3 m_Origin = Camera.main.transform.position;
-        
-        while (duration > 0.1)
-        {
-            float m_newX = GetRandomRange(0.1f, 1f);
-            Vector3 m_NewPos = new Vector3(m_Origin.x + m_newX, m_Origin.y);
+            if (isFrozen)
+            {
+                go.GetComponent<Entity>().m_MovDir = Vector2.zero;
+                go.GetComponent<Entity>().m_ActionDir = Vector2.zero;
+                go.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+            }
+            else
+            {
+                go.GetComponent<Entity>().m_MovDir = new Vector2(0, -1f);
+                go.GetComponent<Entity>().m_ActionDir = go.GetComponent<Entity>().m_MovDir;
+            }
             
-            Camera.main.transform.position = Vector3.Lerp(m_Origin, m_NewPos, speed);
-            yield return new WaitForSeconds(speed);
-            duration -= Time.deltaTime;
         }
-
-        Camera.main.transform.position = m_Origin;
-        yield return null;
     }
 }

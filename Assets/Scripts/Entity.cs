@@ -14,17 +14,18 @@ public class Entity : MonoBehaviour
     public int m_Attack;
     public int m_Defence;
     public float m_Speed;
-    public float m_KnockbackSpeed;
 
     [Header("Entity Multipliers")] 
     public int m_AtkBonus;  
     public int m_DefBonus;
     public float m_SpdBonus;
 
-    [Header("Entity Physics")] public bool m_CanMove;
+    [Header("Entity Physics")] 
+    public bool m_CanMove;
     public Vector2 m_MovDir;
     public Vector2 m_ActionDir;
     public Vector2 m_KnockbackDir;
+    public float m_KnockbackSpeed;
     public bool m_Invincible;
     
     [Header("Entity Components")] 
@@ -56,14 +57,13 @@ public class Entity : MonoBehaviour
             if (gameObject.tag == "Player")
             {
                 GameManager.instance.m_Player.HealthUpdate();
-                GameManager.instance.m_Player.ChangeStatBoost(-m_AtkBonus, 0, 0f);
+                GameManager.instance.m_Player.ChangeStatBoost(Mathf.FloorToInt(-m_AtkBonus / 2), -1, 0f);
             }
             KnockbackStartUp();
             float entityMultiplier = 1f;
             if (transform.root.CompareTag("Entity"))
             {
                 entityMultiplier = 0.5f;
-                
             }
             StartCoroutine(InvincibleFrames((1.5f + (m_Defence + m_DefBonus) / 100) * entityMultiplier));
         }
@@ -92,10 +92,16 @@ public class Entity : MonoBehaviour
     public IEnumerator InvincibleFrames(float time)
     {
         m_Invincible = true;
-        Physics2D.IgnoreLayerCollision(8, 8, true);
+        if (transform.root.CompareTag("Player"))
+        {
+            Physics2D.IgnoreLayerCollision(8, 8, true);
+        }
         m_Sprite.color = new Color(1f, 1f, 1f, 0.5f);
         yield return new WaitForSeconds(time);
-        Physics2D.IgnoreLayerCollision(8, 8, false);
+        if (transform.root.CompareTag("Player"))
+        {
+            Physics2D.IgnoreLayerCollision(8, 8, false);
+        }
         m_Sprite.color = new Color(1f, 1f, 1f, 1f);
         m_Invincible = false;
         yield return null;
@@ -196,8 +202,6 @@ public class Entity : MonoBehaviour
     public void Death()
     {
         GameManager.instance.SpawnExplosion(transform.position);
-        GameManager.instance.StartCoroutine("ScreenShake");
-        Physics2D.IgnoreLayerCollision(8, 8, false);
         FreezeMovement(true);
         m_Sprite.color = new Color(1f, 1f, 1f, 0f);
         float destroyDelay = 0.3f;
@@ -205,6 +209,9 @@ public class Entity : MonoBehaviour
         if (this.gameObject.tag == "Entity")
         {
             GameManager.instance.m_EnemiesKilled++;
+            
+            int bonusEXP = (m_Level - GameManager.instance.m_Player.m_Level) * 10;
+            GameManager.instance.m_Player.IncreaseEXP(9 + bonusEXP);
             
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();
@@ -228,16 +235,16 @@ public class Entity : MonoBehaviour
 
     public void FreezeMovement(bool state)
     {
-        if (state == true)
+        if (state)
         {
-            m_rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            m_MovDir = Vector2.zero;
+            m_rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         else
         {
             m_rb.constraints = RigidbodyConstraints2D.None;
         }
         m_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        m_MovDir = Vector2.zero;
     }
 
     public void PlayAudio(AudioClip audioClip)

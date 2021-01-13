@@ -92,20 +92,17 @@ public class EnemyBehaviour : Entity
 
     void FixedUpdate()
     {
-        if (m_CanMove == true)
+        switch (m_state)
         {
-            switch (m_state)
-            {
-                case State.Normal:
-                    m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
-                    break;
-                case State.Chasing:
-                    m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
-                    break;
-                case State.Damaged:
-                    m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
-                    break;
-            }
+            case State.Normal:
+                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
+                break;
+            case State.Chasing:
+                m_rb.velocity = m_MovDir * (m_Speed + m_SpdBonus);
+                break;
+            case State.Damaged:
+                m_rb.velocity = m_KnockbackDir * ((m_Speed + m_SpdBonus) * m_KnockbackSpeed);
+                break;
         }
     }
 
@@ -137,6 +134,10 @@ public class EnemyBehaviour : Entity
         if (m_UnseenTimer > 30)
         {
             Debug.Log(gameObject.name + " got destroyed, due to being inactive.");
+            gameObject.tag = "Untagged";
+            EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
+            m_Generator.RemoveDeadEnemies();
+            
             Destroy(gameObject);
         }
         else

@@ -344,8 +344,9 @@ MonoBehaviour:
   m_Player: {fileID: 0}
   m_Money: 0
   m_Screen: {fileID: 508617120}
-  m_Explosion: {fileID: 316147384574353801, guid: de2aea246bd1e18c2888509024a029b3, type: 3}
   m_PopUpText: {fileID: 4064156372873501146, guid: df0921fbd78d30894b1cd203776508de, type: 3}
+  m_Explosion: {fileID: 316147384574353801, guid: de2aea246bd1e18c2888509024a029b3, type: 3}
+  m_LevelUpFX: {fileID: 674168806653675094, guid: b68e164e603dc05bdb6a82e5310c43e4, type: 3}
   m_Floor: 1
   m_EnemiesKilled: 0
   m_HiddenStairsSpawned: 0
@@ -7268,7 +7269,6 @@ MonoBehaviour:
   m_Attack: 2
   m_Defence: 1
   m_Speed: 4
-  m_KnockbackSpeed: 0
   m_AtkBonus: 0
   m_DefBonus: 0
   m_SpdBonus: 0
@@ -7276,6 +7276,7 @@ MonoBehaviour:
   m_MovDir: {x: 0, y: 0}
   m_ActionDir: {x: 0, y: 0}
   m_KnockbackDir: {x: 0, y: 0}
+  m_KnockbackSpeed: 0
   m_Invincible: 0
   m_ani: {fileID: 1095865642}
   m_rb: {fileID: 2065466066}
@@ -7286,8 +7287,9 @@ MonoBehaviour:
   m_Hurt: {fileID: 8300000, guid: 92fa00343e489d028872501d58518ebe, type: 3}
   m_HurtBadly: {fileID: 8300000, guid: b3da6d7a33103bbfaba5ef3025f6da15, type: 3}
   m_Death: {fileID: 8300000, guid: 63697dda3f1e5c144a3b009bc3ddfe21, type: 3}
+  m_Exp: 0
   m_RollSpeed: 6
-  m_ActionCooldown: 0.4
+  m_ActionCooldown: 0.8
   m_ActionTimer: 0
   m_state: 0
   m_HealthBar: {fileID: 1038493240}
@@ -7296,6 +7298,7 @@ MonoBehaviour:
   m_SpdBoostIcon: {fileID: 2031809014}
   m_SwordSwing: {fileID: 8300000, guid: cc19c04740c58b1c49ad376651a05876, type: 3}
   m_RollSFX: {fileID: 8300000, guid: 0d479b5f0e2742df296670769f7b999f, type: 3}
+  m_LevelUpJingle: {fileID: 8300000, guid: f60c706a52607b462a4c3ad69da8e876, type: 3}
 --- !u!50 &2065466066
 Rigidbody2D:
   serializedVersion: 4

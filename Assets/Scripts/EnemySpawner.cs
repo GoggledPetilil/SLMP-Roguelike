@@ -72,13 +72,8 @@ public class EnemySpawner : MonoBehaviour
 
     public void RemoveDeadEnemies()
     {
-        for (int i = 0; i < m_ActiveEnemyList.Count; i++)
-        {
-            if (m_ActiveEnemyList[i].GetComponent<Entity>().m_HP < 1)
-            {
-                Destroy(m_ActiveEnemyList[i]);
-                m_ActiveEnemyList.Remove(m_ActiveEnemyList[i]);
-            }
-        }
+        m_ActiveEnemyList.Clear();
+        m_ActiveEnemyList = new List<GameObject>(GameObject.FindGameObjectsWithTag("Entity"));
+
     }
 }
