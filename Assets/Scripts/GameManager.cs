@@ -102,4 +102,22 @@ public class GameManager : MonoBehaviour
             go.GetComponent<Entity>().m_CanMove = !isFrozen;
         }
     }
+
+    public IEnumerator ScreenShake(float duration, float speed)
+    {
+        Vector3 m_Origin = Camera.main.transform.position;
+        
+        while (duration > 0.1)
+        {
+            float m_newX = GetRandomRange(0.1f, 1f);
+            Vector3 m_NewPos = new Vector3(m_Origin.x + m_newX, m_Origin.y);
+            
+            Camera.main.transform.position = Vector3.Lerp(m_Origin, m_NewPos, speed);
+            yield return new WaitForSeconds(speed);
+            duration -= Time.deltaTime;
+        }
+
+        Camera.main.transform.position = m_Origin;
+        yield return null;
+    }
 }

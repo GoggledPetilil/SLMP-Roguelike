@@ -2,29 +2,40 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9d713dd1-8c64-4bca-842d-8378a10f08c3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.SLMP-Roguelike/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Dimbo Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Fonts/Dimbo Regular.ttf.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackDown.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackDown.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackLeft.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackLeft.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackRight.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackRight.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackUp.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Entity/Player/Player_AttackUp.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Fade_In.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Fade_In.anim" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Graphics/Animations/Fade_Out.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Graphics/Animations/Fade_Out.anim" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decor/Grass.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decor/Grass.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decor/Pebble.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decor/Pebble.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decor/Pillar.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decor/Pillar.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Decor/Rock.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Decor/Rock.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Entities/Enemies/Slime.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Entities/Enemies/Slime.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Explosion.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Explosion.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Banana.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/Banana.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/Coin.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/Coin.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/DefShield.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/DefShield.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/PowBracelet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/PowBracelet.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Items/SpdSlipper.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Items/SpdSlipper.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/B.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/B.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/Closed.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/L.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/LB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/R.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/RL.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/StartRoom.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/T.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TB.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TL.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Rooms/TR.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Stairs.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Entity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Entity.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,13 +68,13 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/TeleportToSpawn.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/RoomTemplates.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/KillEffects.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Stairs.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Item.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMove.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Entity.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EnemyBehaviour.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Entity.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1k0n1nX6wtDBYlKI1QW1hnDm03n" />
@@ -162,6 +173,7 @@
       <workItem from="1610026213754" duration="285000" />
       <workItem from="1610288587873" duration="5536000" />
       <workItem from="1610384378297" duration="3161000" />
+      <workItem from="1610539276263" duration="4101000" />
     </task>
     <servers />
   </component>

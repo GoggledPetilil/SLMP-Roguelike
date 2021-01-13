@@ -21,7 +21,6 @@ public class EnemyBehaviour : Entity
     public Vector3 m_TargetPos;
     private float m_Interest; // How long the enemy is interested in a location.
     public float m_UnseenTimer; // How long the enemy is unseen by the player.
-    public bool m_IsSeen;
     
     [Header("Enemy Components")]
     private State m_state;
@@ -36,14 +35,18 @@ public class EnemyBehaviour : Entity
         
         m_TargetObject = GameObject.Find("Player");
 
-        LevelUp(1 + Mathf.FloorToInt(GameManager.instance.m_Floor / 2));
+        LevelUp(1 + Mathf.FloorToInt(GameManager.instance.m_Floor / 4));
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckSight();
-
+        if (m_Invincible == true && m_KnockbackSpeed > 1)
+        {
+            m_state = State.Damaged;
+        }
+        
         switch (m_state)
         {
             case State.Normal:
@@ -63,12 +66,6 @@ public class EnemyBehaviour : Entity
                 {
                     m_Interest -= Time.deltaTime;
                 }
-                
-                if (m_Invincible == true && m_KnockbackSpeed > 1)
-                {
-                    m_state = State.Damaged;
-                }
-                
                 WhileUnSeen();
                 break;
             case State.Chasing:
@@ -76,13 +73,6 @@ public class EnemyBehaviour : Entity
                 if (m_MovDir.x != 0 || m_MovDir.y != 0)
                 {
                     m_ActionDir = m_MovDir;
-                }
-                
-                CheckSight();
-                
-                if (m_Invincible == true)
-                {
-                    m_state = State.Damaged;
                 }
                 break;
             case State.Damaged:
@@ -159,7 +149,7 @@ public class EnemyBehaviour : Entity
     {
         m_Level = level;
 
-        int hpUp = 5 * (level - 1);
+        int hpUp = 2 * (level - 1);
         m_MaxHP += hpUp;
         m_HP += hpUp;
 

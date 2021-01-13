@@ -15,7 +15,6 @@ public class Entity : MonoBehaviour
     public int m_Defence;
     public float m_Speed;
     public float m_KnockbackSpeed;
-    public float m_InvincibilityTime;
 
     [Header("Entity Multipliers")] 
     public int m_AtkBonus;  
@@ -60,7 +59,13 @@ public class Entity : MonoBehaviour
                 GameManager.instance.m_Player.ChangeStatBoost(-m_AtkBonus, 0, 0f);
             }
             KnockbackStartUp();
-            StartCoroutine(InvincibleFrames(1.5f + (m_Defence + m_DefBonus) / 100));
+            float entityMultiplier = 1f;
+            if (transform.root.CompareTag("Entity"))
+            {
+                entityMultiplier = 0.5f;
+                
+            }
+            StartCoroutine(InvincibleFrames((1.5f + (m_Defence + m_DefBonus) / 100) * entityMultiplier));
         }
     }
 
@@ -190,12 +195,13 @@ public class Entity : MonoBehaviour
 
     public void Death()
     {
+        GameManager.instance.SpawnExplosion(transform.position);
+        GameManager.instance.StartCoroutine("ScreenShake");
         Physics2D.IgnoreLayerCollision(8, 8, false);
         FreezeMovement(true);
         m_Sprite.color = new Color(1f, 1f, 1f, 0f);
         float destroyDelay = 0.3f;
-        GameManager.instance.SpawnExplosion(transform.position);
-        
+
         if (this.gameObject.tag == "Entity")
         {
             GameManager.instance.m_EnemiesKilled++;
@@ -203,7 +209,7 @@ public class Entity : MonoBehaviour
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();
             
-            Destroy(this.gameObject, destroyDelay);
+            Destroy(gameObject, destroyDelay);
         }
         else if (this.gameObject.tag == "Player")
         {
@@ -225,6 +231,7 @@ public class Entity : MonoBehaviour
         if (state == true)
         {
             m_rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            m_MovDir = Vector2.zero;
         }
         else
         {
