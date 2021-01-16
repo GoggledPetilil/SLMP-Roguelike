@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random=UnityEngine.Random;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Essentials")]
     public static GameManager instance;
+    public AudioSource m_Music;
     public AudioSource m_AudioSource;
     public PlayerMove m_Player;
+    public Canvas m_Canvas;
     public int m_Money;
     
     [Header("Effects")]
@@ -17,8 +20,10 @@ public class GameManager : MonoBehaviour
     public GameObject m_PopUpText;
     public GameObject m_Explosion;
     public GameObject m_LevelUpFX;
+    public float m_ScreenFadeTime = 0.5f;
 
-    [Header("Dungeon")]
+    [Header("Dungeon")] 
+    public GameObject m_DungeonGenerator;
     public int m_Floor;
     public int m_EnemiesKilled;
     public bool m_HiddenStairsSpawned;
@@ -28,7 +33,7 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
-            m_Floor = 1;
+            m_Floor = 0;
             m_Money = 0;
             
             instance = this;
@@ -67,14 +72,26 @@ public class GameManager : MonoBehaviour
         return i;
     }
 
-    public void ScreenFadeIn()
+    public IEnumerator ScreenFadeIn()
     {
+        CanvasToCam();
         m_Screen.Play("Fade_In");
+        yield return new WaitForSeconds(m_ScreenFadeTime);
     }
     
-    public void ScreenFadeOut()
+    public IEnumerator ScreenFadeOut()
     {
+        CanvasToCam();
         m_Screen.Play("Fade_Out");
+        yield return new WaitForSeconds(m_ScreenFadeTime);
+    }
+
+    private void CanvasToCam()
+    {
+        if (m_Canvas.worldCamera == null)
+        {
+            m_Canvas.worldCamera = Camera.main;
+        }
     }
 
     public void PlayAudio(AudioClip audioClip)
@@ -117,7 +134,21 @@ public class GameManager : MonoBehaviour
                 go.GetComponent<Entity>().m_MovDir = new Vector2(0, -1f);
                 go.GetComponent<Entity>().m_ActionDir = go.GetComponent<Entity>().m_MovDir;
             }
-            
         }
+    }
+
+    public void EnableDungeon(bool state)
+    {
+        m_DungeonGenerator.SetActive(state);
+    }
+
+    public void HidePlayer(bool state)
+    {
+        m_Player.gameObject.SetActive(state);
+    }
+
+    public void SwitchScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }

@@ -10,6 +10,7 @@
           <e p="AddRoom.cs" t="Include" />
           <e p="AntiSpawnClog.cs" t="Include" />
           <e p="CameraFollow.cs" t="Include" />
+          <e p="Cutscene.cs" t="Include" />
           <e p="DestroyWalls.cs" t="Include" />
           <e p="EnemyBehaviour.cs" t="Include" />
           <e p="EnemySpawner.cs" t="Include" />

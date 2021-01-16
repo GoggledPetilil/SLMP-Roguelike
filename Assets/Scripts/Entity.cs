@@ -223,7 +223,7 @@ public class Entity : MonoBehaviour
             Debug.Log("Player Died");
             RoomTemplates m_RT;
             m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-            m_RT.StartCoroutine("ResetDungeon");
+            m_RT.ResetDungeon();
             
             GameManager.instance.m_Floor = 1;
             GameManager.instance.UpdateFloorText();

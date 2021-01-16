@@ -14,16 +14,26 @@ public class Stairs : MonoBehaviour
         {
             GameManager.instance.FreezeAllEntities(true);
             GameManager.instance.PlayAudio(m_Descend);
+
+            if (GameManager.instance.m_Floor < 99)
+            {
+                RoomTemplates m_RT;
+                m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
+                m_RT.ResetDungeon();
             
-            RoomTemplates m_RT;
-            m_RT = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
-            m_RT.StartCoroutine("ResetDungeon");
+                PlayerMove p = GameManager.instance.m_Player;
+                p.ChangeStatBoost(0, 0, -p.m_SpdBonus);
+                GameManager.instance.IncreaseFloor(1);
             
-            PlayerMove p = GameManager.instance.m_Player;
-            p.ChangeStatBoost(0, 0, -p.m_SpdBonus);
-            GameManager.instance.IncreaseFloor(1);
+                Destroy(this.gameObject, 0.5f);
+            }
+            else
+            {
+                GameManager.instance.m_Music.Stop();
+                GameManager.instance.StartCoroutine("ScreenFadeOut");
+                GameManager.instance.SwitchScene("Opening");
+            }
             
-            Destroy(this.gameObject, 0.5f);
         }
         else if (other.gameObject.tag == "Item" || other.gameObject.tag == "Decor")
         {

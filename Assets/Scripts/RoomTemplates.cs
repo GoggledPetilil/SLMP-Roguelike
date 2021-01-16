@@ -33,10 +33,9 @@ public class RoomTemplates : MonoBehaviour
         }
     }
     
-    public IEnumerator ResetDungeon()
+    public void ResetDungeon()
     {
-        GameManager.instance.ScreenFadeOut();
-        yield return new WaitForSeconds(0.5f);
+        GameManager.instance.StartCoroutine("ScreenFadeOut");
         ClearAll();
     }
 
