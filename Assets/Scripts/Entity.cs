@@ -45,7 +45,6 @@ public class Entity : MonoBehaviour
     {
         if (other.transform.root.tag != transform.root.tag && other.gameObject.tag == "Attack" && m_Invincible == false)
         {
-            Debug.Log(gameObject.transform.root.name + " got hit by " + other.transform.root.name);
             Entity otherEntity = other.transform.root.GetComponent<Entity>();
             int m_EnemyAtk = otherEntity.m_Attack + otherEntity.m_AtkBonus;
             
@@ -157,6 +156,16 @@ public class Entity : MonoBehaviour
     public void TakeDamage(int m_EnemyAttack)
     {
         m_AudioSource.clip = m_Hurt;
+        if (transform.root.CompareTag("Entity"))
+        {
+            int r = Mathf.RoundToInt(GameManager.instance.GetRandomRange(1, 100));
+            if (r < m_EnemyAttack)
+            {
+                // This is a critical hit.
+                m_AudioSource.clip = m_HurtBadly;
+                m_EnemyAttack = m_EnemyAttack * 3;
+            }
+        }
         
         int damage = m_EnemyAttack - (m_Defence + m_DefBonus);
         if (damage < 1)
@@ -209,9 +218,14 @@ public class Entity : MonoBehaviour
         if (this.gameObject.tag == "Entity")
         {
             GameManager.instance.m_EnemiesKilled++;
+            int baseExp = 9;
             
             int bonusEXP = (m_Level - GameManager.instance.m_Player.m_Level) * 10;
-            GameManager.instance.m_Player.IncreaseEXP(9 + bonusEXP);
+            if (bonusEXP <= -baseExp)
+            {
+                bonusEXP = (baseExp * -1) + 1;
+            }
+            GameManager.instance.m_Player.IncreaseEXP(baseExp + bonusEXP);
             
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();

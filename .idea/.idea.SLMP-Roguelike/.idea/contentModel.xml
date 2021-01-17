@@ -16,6 +16,7 @@
           <e p="EnemySpawner.cs" t="Include" />
           <e p="Entity.cs" t="Include" />
           <e p="EntityOverlap.cs" t="Include" />
+          <e p="ExpBar.cs" t="Include" />
           <e p="FloorText.cs" t="Include" />
           <e p="GameManager.cs" t="Include" />
           <e p="HealthBar.cs" t="Include" />

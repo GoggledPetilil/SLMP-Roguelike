@@ -133,7 +133,6 @@ public class EnemyBehaviour : Entity
     {
         if (m_UnseenTimer > 30)
         {
-            Debug.Log(gameObject.name + " got destroyed, due to being inactive.");
             gameObject.tag = "Untagged";
             EnemySpawner m_Generator = GameObject.FindGameObjectWithTag("Rooms").GetComponent<EnemySpawner>();
             m_Generator.RemoveDeadEnemies();

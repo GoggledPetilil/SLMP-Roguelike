@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour
 
     private void CanvasToCam()
     {
+        if (m_Canvas == null)
+        {
+            m_Canvas = GameObject.Find("GM Canvas").GetComponent<Canvas>();
+        }
         if (m_Canvas.worldCamera == null)
         {
             m_Canvas.worldCamera = Camera.main;
@@ -120,6 +124,7 @@ public class GameManager : MonoBehaviour
     {
         List<GameObject> allEntities = new List<GameObject>(GameObject.FindGameObjectsWithTag("Entity"));
         allEntities.Add(m_Player.gameObject);
+        m_Player.m_CanMove = !isFrozen;
         foreach (var go in allEntities)
         {
             go.GetComponent<Entity>().m_CanMove = !isFrozen;

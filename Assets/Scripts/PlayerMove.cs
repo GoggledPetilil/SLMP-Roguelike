@@ -25,6 +25,7 @@ public class PlayerMove : Entity
     [Header("Player Components")]
     public State m_state;
     public HealthBar m_HealthBar;
+    public ExpBar m_ExpBar;
     public SpriteRenderer m_AtkBoostIcon;
     public SpriteRenderer m_DefBoostIcon;
     public SpriteRenderer m_SpdBoostIcon;
@@ -54,6 +55,7 @@ public class PlayerMove : Entity
         m_HealthBar.SetHealthText(m_HP, m_MaxHP);
         m_HealthBar.SetHealthBar(m_HP / m_MaxHP);
         ChangeStatBoost(0, 0, 0f);
+        m_ExpBar.SetExpBar((float)m_Exp / (float)100);
     }
 
     // Update is called once per frame
@@ -84,7 +86,7 @@ public class PlayerMove : Entity
         
                 MoveAni();
 
-                if (Input.GetButtonDown("Roll") && m_ActionTimer <= 0)
+                if (Input.GetButtonDown("Roll") && m_ActionTimer <= 0 && m_CanMove)
                 {
                     PlayAudio(m_RollSFX);
                     CreateDust();
@@ -95,7 +97,7 @@ public class PlayerMove : Entity
                     StartCoroutine(InvincibleFrames(1f + (m_Defence + m_DefBonus) / 100));
                 }
 
-                if (Input.GetButtonDown("Attack") && m_ActionTimer <= 0)
+                if (Input.GetButtonDown("Attack") && m_ActionTimer <= 0 && m_CanMove)
                 {
                     PlayAudio(m_SwordSwing);
                     FreezeMovement(true);
@@ -175,7 +177,6 @@ public class PlayerMove : Entity
     {
         float speed = (m_Speed + m_SpdBonus) * 0.1f;
         m_ActionTimer = (m_ActionCooldown - speed);
-        Debug.Log(m_ActionTimer);
     }
 
     public void HealthUpdate()
@@ -222,6 +223,7 @@ public class PlayerMove : Entity
         if (m_SpdBonus > 0)
         {
             m_SpdBoostIcon.color = new Color(1f, 1f, 1f, 1f);
+            SetRollSpeed();
         }
         else
         {
@@ -233,6 +235,8 @@ public class PlayerMove : Entity
     public void IncreaseEXP(int amount)
     {
         m_Exp += amount;
+        m_HealthBar.SetHealthBar((float)m_HP / (float)m_MaxHP);
+        m_ExpBar.SetExpBar((float)m_Exp / (float)100);
         CheckEXP();
     }
 
@@ -264,9 +268,14 @@ public class PlayerMove : Entity
         float spdUp = 0.01f * amount;
         m_Speed += spdUp;
 
-        m_Exp = 0;
+        m_Exp -= 100 * amount;
+        if (m_Exp < 0)
+        {
+            m_Exp = 0;
+        }
         
         HealthUpdate();
+        m_ExpBar.SetExpBar((float)m_Exp / (float)100);
     }
 
     private void SetRollSpeed()
